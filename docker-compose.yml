@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+
+  web:
+    build: .
+    depends_on:
+      - mongodb
+
+    command: uvicorn main:app --host 0.0.0.0
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    links:
+      - mongodb
+    environment:
+      MONGODB_URI: 'mongodb://app_user:app_password@mongodb/admin'
+      SIMULATOR_INTERVAL_SECONDS: 3
+      WAIT_HOSTS: mongodb:27017
+    networks:
+      - app-network
+  mongodb:
+    container_name: mongodb
+    image: mongo:6.0
+    volumes:
+      - ~/mongo:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=app_user
+      - MONGO_INITDB_ROOT_PASSWORD=app_password
+      - MONGO_INITDB_DATABASE=admin
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
