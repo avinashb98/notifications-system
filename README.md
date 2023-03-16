@@ -36,7 +36,7 @@ congratulating the user. The notification should have an identifier
 
 ### Testing
 #### REST API
-Head over to [swagger api docs](localhost:8000/docs). The same doc can be used to interact with the implemented rest apis.
+Head over to [swagger api docs](http://localhost:8000/docs). The same doc can be used to interact with the implemented rest apis.
 
 #### Websocket
 A websocket client like [Postman](https://www.postman.com/) is required to interact with the websocket server of the app.
